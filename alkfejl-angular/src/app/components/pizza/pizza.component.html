@@ -1,0 +1,14 @@
+<a routerLink="/order/{{pizza.id}}" class="collection-item">
+  <div>
+    <img src={{pizza.imageURL}} alt={{pizza.name}} style="width:200px; height:200px">
+  </div>
+  <div>{{pizza.name}}</div>
+  <div>{{pizza.size}}</div>
+  <div>feltétek: {{pizza.toppings}}</div>
+  <div>ár: {{pizza.price}}</div>
+  <div class="row">
+    <div class="col s12">
+      <input type="button" value="Kosárba" class="btn">
+    </div>
+  </div>
+</a>

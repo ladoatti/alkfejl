@@ -1,0 +1,41 @@
+<div *ngIf="user">
+  <h2 class="red-text text-lighten-2">{{user.name}}</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Azonosító</th>
+        <td>{{user.id}}</td>
+      </tr>
+      <tr>
+        <th>E-mail cím</th>
+        <td>{{user.email}}</td>
+      </tr>
+      <tr>
+        <th>Telefonszám</th>
+        <td>{{user.phone}}</td>
+      </tr>
+      <tr>
+        <th>Lakcím</th>
+        <td>{{user.address}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <div class="col s12">
+    <input type="button" value="Módosítás" class="btn">
+  </div>
+</div>
+<div *ngIf="!user">
+  <div class="preloader-wrapper active">
+    <div class="spinner-layer spinner-red-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
