@@ -24,9 +24,6 @@ public class Order implements ModelInterface {
     @JsonIgnoreProperties("orderList")
     @Getter @Setter private User owner;
 
-    @Column(name = "ROW", nullable = false)
-    @Getter @Setter private Integer row;
-
-    @Column(name = "COL", nullable = false)
-    @Getter @Setter private Integer col;
+    @Column(name = "PIZZA_ID", nullable = false)
+    @Getter @Setter private Integer pizza_id;
 }

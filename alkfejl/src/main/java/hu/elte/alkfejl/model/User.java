@@ -32,6 +32,9 @@ public class User implements ModelInterface, Serializable {
     @Column(name = "PHONE", nullable = false)
     @Getter @Setter private String phone;
 
+    @Column(name = "ADDRESS", nullable = false)
+    @Getter @Setter private String address;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE", nullable = false)
     @Getter @Setter private Role role;

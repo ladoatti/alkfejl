@@ -19,9 +19,9 @@ public class UserDao extends GenericDaoImpl<User> {
         return (User) executableCriteria.uniqueResult();
     }
 
-    public User findByUsernameAndPassword(String username, String password) {
+    public User findByEmailAndPassword(String email, String password) {
         DetachedCriteria criteria = DetachedCriteria.forClass(entityClass);
-        criteria.add(Restrictions.eq("username", username));
+        criteria.add(Restrictions.eq("email", email));
         criteria.add(Restrictions.eq("password", password));
         Criteria executableCriteria = criteria.getExecutableCriteria(currentSession());
         return (User) executableCriteria.uniqueResult();

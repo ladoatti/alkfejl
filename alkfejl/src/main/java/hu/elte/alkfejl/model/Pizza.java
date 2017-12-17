@@ -35,4 +35,7 @@ public class Pizza implements ModelInterface {
                     nullable = false, updatable = false) })
     @JsonIgnore
     @Getter @Setter private List<Topping> toppings;
+
+    @Column(name = "IMAGEURL", nullable = false)
+    @Getter @Setter private String imageURL;
 }

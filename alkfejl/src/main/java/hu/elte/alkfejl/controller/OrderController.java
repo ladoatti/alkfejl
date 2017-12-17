@@ -7,6 +7,7 @@ import hu.elte.alkfejl.exception.MissingDataException;
 import hu.elte.alkfejl.model.Order;
 import hu.elte.alkfejl.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,7 +57,6 @@ public class OrderController implements ControllerInterface<Order> {
         }
     }
 
-
     @Override
     @PostMapping("/create")
     @Role(ADMIN)
@@ -67,6 +67,10 @@ public class OrderController implements ControllerInterface<Order> {
             e.printStackTrace();
         }
     }
+
+    @Role({ADMIN, USER})
+    @RequestMapping("/add")
+    public ResponseEntity<Order> add(@PathVariable Integer pizza_id, Integer order_id){};
 
     @Role({ADMIN, USER})
     @GetMapping("/{id}")

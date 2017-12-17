@@ -28,7 +28,7 @@ public class UserService extends AbstractService<User> {
 
     public User login(User user) throws UserNotValidException {
         if (isValid(user)) {
-            return this.user = userDao.findByUsername(user.getUsername());
+            return this.user = userDao.findByEmailAndPassword(user.getEmail(), user.getPassword());
         }
         throw new UserNotValidException("Username already exists!");
     }
@@ -43,7 +43,7 @@ public class UserService extends AbstractService<User> {
     }
 
     public boolean isValid(User user) {
-        return userDao.findByUsernameAndPassword(user.getUsername(), user.getPassword()) != null;
+        return userDao.findByEmailAndPassword(user.getEmail(), user.getPassword()) != null;
     }
 
     public boolean isLoggedIn() {

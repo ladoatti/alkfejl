@@ -10,6 +10,7 @@ import hu.elte.alkfejl.model.Order;
 import hu.elte.alkfejl.model.User;
 import hu.elte.alkfejl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ import static hu.elte.alkfejl.model.User.Role.ADMIN;
 import static hu.elte.alkfejl.model.User.Role.USER;
 
 @RestController
-@RequestMapping("/user/")
+@RequestMapping("api/user")
 public class UserController implements ControllerInterface<User> {
 
     @Autowired
@@ -36,7 +37,7 @@ public class UserController implements ControllerInterface<User> {
     @PutMapping("/update")
     public void update(@RequestBody User user) {
         try {
-            userService.update(user);
+            userService.update(null);
         } catch (DataNotValidException e) {
             e.printStackTrace();
         }
@@ -88,15 +89,30 @@ public class UserController implements ControllerInterface<User> {
         return userDao.getEntities();
     }
 
-    @GetMapping("/login")
-    public String login(@ModelAttribute User user, Model model) {
+    @RequestMapping("/login")
+    public ResponseEntity<User> login(@RequestBody User user, Model model) {
         try {
             userService.login(user);
-            return redirectToGreeting(user);
+            return ResponseEntity.ok(userService.getUser());
         }
         catch (UserNotValidException e) {
             model.addAttribute("error", true);
-            return "login";
+            return ResponseEntity.status(403).build();
+        }
+    }
+
+    @RequestMapping("/logout")
+    public ResponseEntity logout() {
+        userService.setUser(null);
+        return ResponseEntity.ok(false);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity getUser() {
+        if (userService.getUser() == null) {
+            return ResponseEntity.ok(false);
+        } else {
+            return ResponseEntity.ok(userService.getUser());
         }
     }
 
@@ -106,12 +122,12 @@ public class UserController implements ControllerInterface<User> {
         return "register";
     }
 
-    @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public  ResponseEntity<User> register(@RequestBody User user) {
         user.setRole(USER);
         userService.register(user);
 
-        return redirectToGreeting(user);
+        return ResponseEntity.ok(userService.getUser());
     }
 
     private String redirectToGreeting(@ModelAttribute User user) {
