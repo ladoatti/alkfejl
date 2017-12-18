@@ -69,10 +69,6 @@ public class OrderController implements ControllerInterface<Order> {
     }
 
     @Role({ADMIN, USER})
-    @RequestMapping("/add")
-    public ResponseEntity<Order> add(@PathVariable Integer pizza_id, Integer order_id){};
-
-    @Role({ADMIN, USER})
     @GetMapping("/{id}")
     public Order get(@PathVariable Integer id) {
         return orderService.get(id);
